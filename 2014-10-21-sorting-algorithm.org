@@ -1,0 +1,29 @@
+#+TITLE: Sorting algorithm
+#+DATE: 2014-10-21
+#+SETUPFILE: ~/.emacs.d/custom/org-octopress/setupfile.org
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: C/C++
+#+JEKYLL_PUBLISHED: true
+
+* Sorting Algorithm
+
+{{{more}}}
+
+* Bubble Sort
+#+begin_src c++
+void bubbleSort(int* ary, unsigned len)
+{
+    for (unsigned i = 0; i<len-1; ++i) {
+        for (unsigned j = 1; j < len; ++j) { // 每个循环最大的都会到低位
+            if (ary[i] < ary[j])
+            {
+                ary[i] = ary[i] ^ ary[j];
+                ary[j] = ary[i] ^ ary[j];
+                ary[i] = ary[i] ^ ary[j];
+            }
+        }
+
+    }
+
+}
+#+end_src

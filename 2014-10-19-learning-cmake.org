@@ -1,0 +1,21 @@
+#+TITLE: Learning CMake
+#+DATE: 2014-10-19
+#+SETUPFILE: ~/.emacs.d/custom/org-octopress/setupfile.org
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: C/C++
+#+JEKYLL_PUBLISHED: true
+
+
+{{{more}}}
+
+* Source Directory & Binary Directory
+The main Directories used by cmake to build a project
+
+the source Directory the where the source code your project locate, the binary directory is where cmake put the resulting object files, libraries, executable.
+
+* Running CMake on Command line
+
+-i : to run in interactive mode 
+
+* Key Concept
+target , generators, commands

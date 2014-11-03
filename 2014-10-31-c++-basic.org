@@ -1,0 +1,179 @@
+#+TITLE: C++ Basic
+#+DATE: 2014-10-31
+#+SETUPFILE: ~/.emacs.d/custom/org-octopress/setupfile.org
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: cpp
+#+JEKYLL_PUBLISHED: true
+
+* C++ Review
+{{{more}}}
+
+* The Basic
+** Reference
+Reference is a compound type.  A compound type is a type that is defined in terms of another type.
+
+** Enumerations
+enum enumType{val1, val2, val3} 
+
+each enum defines a new type. and each enum value is a const enum type object.
+
+by default, the first enumerator is assigned the value zero.
+
+** Array and Pointer
+array and pointer are similar to vector and its iterator
+
+- size_t 
+size_t is a machine-specific unsigned type that is guaranteed to b large enough to hold the size of an object in memory.
+
+- array initialization
+#+begin_src c++
+char ary[] = "hello";
+int ary[10] = {}; // initialize the ary with default value 0;
+int ary[3] = {1, 2, 3}; // initializa the ary with the given value.
+#+end_src
+
+- define pointers 
+#+begin_src c++
+int *ptr1, *ptr2;  // define two pointer to int , not int* ptr1, ptr2;
+int **pptr1, **ptr2;
+const int * const * const ptr = &ptr1; // const pointer to const pointer to const int;
+#+end_src
+
+- Pointer arithmatic
+#+begin_src c++
+char ary[10];
+char* bptr = ary;
+char* eptr = ary + 10;
+ptrdiff_t n = bptr - eptr; //  n = -10, ptrdiff_t is defined in cstddef heder, a machine-specific type, is a signed integral type.
+#+end_src
+
+- pointer and typedefs
+#+begin_src c++
+typedef string *pstring;
+const pstring cstr; // const pointer to string;  not pointer to const string; equal to string* const cstr;
+#+end_src
+
+- c-style character strings
+c-style strings are null terminated arrays of characters;
+
+- dynamic array
+#+begin_src c++
+string *str = new string[10]; // the default constructor of string is used to initialize each element.
+int *ary = new int[10]; // build-in type, elements are uninitialized
+int *ary = new int[10](); // build-in type initialze to default value which integer is 0
+#+end_src
+
+** Sizeof operator
+!the result of sizeof expression is a compile-time constant, returns a value of type size_t
+#+begin_src c++
+char ary[] = "hello";
+char *ptr = ary;
+cout << *ptr << endl;
+sizeof(++ptr);
+cout << *ptr << endl;
+// both output of the *ptr are 'h', the sizeof operator is evaluate in compile-time , and does not evaluate the expression ++ptr;
+#+end_src
+
+** Reference and Pointer
+
+* Function
+** Overload
+two function that appear in the same scope are overloaded if they have the same name but have different parameter lists;
+
+** Default parameter and overload
+define a function with default parameters equal to define a set of overloaded functions 
+#+begin_src c++
+void func(int a, int b = 1, int c = 2)
+// equal to
+void func(int)
+void func(int, int)
+void func(int, int, int)
+#+end_src
+
+** Overloading and scope
+In c++ name lookup happens before type checking;
+the compiler first look for a declaration of that name in local scope. if the name is found, the compiler does not lookup for the name in an outer scope.
+#+begin_src c++
+void print(const string s);
+void print(double);
+void func()
+{
+    void print(int); // new scope: hide previous instancs of print;
+    print("error"); // error, print(const string&) is hidden;
+}
+#+end_src
+
+** Function matching and argument conversion
+Function overload resolution: how a function call is associated with a specific function from a set of overloaded functions.
+Three Step:
+- Candidate functions
+ A function with the same name as the function that is called.
+ And the declaration is visible at the point of the call.
+- Determine the Viable functions
+- Finding the best match, if any
+** Function Pointer
+- typedef function pointer
+#+begin_src c++
+typedef void(*fptr)(int);// define fptr as type void(*)(int), a function pointer type
+
+typedef int func(int*, int); // func is a function type, not a function pointer type
+func f1(); // error
+func *f2(); // ok
+#+end_src
+
+- initialing function pointer
+#+begin_src c++
+void func(int, int);
+typedef void(*fp)(int, int);
+fp fptr = func;
+#+end_src
+
+- returning function pointer
+#+begin_src c++
+int (*ff(int))(int*, int); // ff is a function take an int and return a function pointer;
+// better choice
+typedef int(*FP)(int*, int);
+FP ff(int);
+#+end_src
+
+* Class
+** Access permission
+the default access permission of struct is public, and class is private
+** typedef in a class
+typedef in a class obey the standard access control of any other member.
+#+begin_src c++
+class A
+{
+public:
+    typedef int aInt;
+private:
+    typedef char aChar;
+};
+// we can use the new type name with A::aINt , but we can access the private type name A::achar
+#+end_src
+** class declaration, definition, implementation
+#+begin_src c++
+class A; //  declaration
+class A{}; // definition
+A::A(){} // each class member function implemetation
+#+end_src
+** Auto-Generated Function
+
+** Friend Function and Friend Class
+
+** Const Keyword
+
+** Static class member
+
+* Operator Overload
+* OOP
+** Encapsulation
+
+** Inheritance
+
+** Polymorphism
+
+* Copy Control
+* Static and extern keyword
+* Marco
+* Compilaton

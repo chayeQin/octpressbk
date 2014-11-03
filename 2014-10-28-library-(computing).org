@@ -1,0 +1,26 @@
+#+TITLE: Library (Computing)
+#+DATE: 2014-10-28
+#+SETUPFILE: ~/.emacs.d/custom/org-octopress/setupfile.org
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: miscellaneous
+#+JEKYLL_PUBLISHED: true
+
+{{{more}}}
+
+* Static Libraries
+when linking is performed during the creation of an executable file or another object file.
+
+static libires also known as an archive
+
+All of the modules are requred by a program are somtimes statically linked and copied into the executable file 
+
+* Shared Libraries
+A shared library or a shared object is a file that is intented to be shared by executable files and further shared objects files.
+
+Modules used by a program are loaded from individual shared objects into memory at load time or run time, rather than being copied by a linker when create a monolithic executable file for the program.
+
+- Static linking
+shared libries can be statically linked , meaning that references to the library modules are resolved and the modules are allocated memory when the executable file is created.
+
+- Dynamic linking
+Dynamic linking or late binding refers to linking performed while a program is beging loaded(load time) or executed(run time), rather than when the executable file is created.

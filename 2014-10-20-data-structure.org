@@ -1,0 +1,53 @@
+#+TITLE: Data structure
+#+DATE: 2014-10-20
+#+SETUPFILE: ~/.emacs.d/custom/org-octopress/setupfile.org
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: C/C++
+#+JEKYLL_PUBLISHED: true
+
+* Data structure
+
+{{{more}}}
+
+* List
+
+** Operations
+   Implementation of a list data structure may proide some of the following operation :
+   - a constructor for create an empty list
+   - an operation for testing whether or not a list is empty
+   - an operation for appending an entity to a list
+   - an operation for determinning the first component of a list("head")
+   - an operation for referring to the list consisting of all the components of a list except for its first ("tail")
+#+begin_src c++
+// list for int
+struct Node
+{
+    int m_data;
+    Node* m_next;
+};
+
+// .h
+TODO
+#+end_src
+
+#+begin_src c++
+// .cpp
+TODO
+#+end_src
+
+** List Alogorithm
+
+*** reverse a list
+#+begin_src c++
+Node* reverse(Node* pre, Node* next)
+{
+    if (!next)
+    {
+        return pre;
+    }
+
+    Node* newhead = reverse(next, next->next);
+    next->next = pre;
+    return newhead;
+}
+#+end_src

@@ -1,0 +1,44 @@
+#+TITLE: Learning Make
+#+DATE: 2014-10-19
+#+SETUPFILE: ~/.emacs.d/custom/org-octopress/setupfile.org
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: C/C++
+#+JEKYLL_PUBLISHED: true
+
+* OverView
+
+** [[A simple makefile]]
+
+** [[What makefiles contain]]
+
+{{{more}}}
+
+* A simple makefile
+
+#+BEGIN_SRC makefile
+target ... : prerequisites
+    recipe
+    ...
+#+END_SRC
+
+* What makefiles contain 
+
+** Explicit rules
+
+** Implicit rules
+
+** Variable definition
+
+** Directive
+
+include filenames .. : Including another makefile, the first character of the line must not be a tab
+
+Deciding whether to use or ignore a part of the makefile
+
+Defining a variable from a verbatain string containing multiple lines
+
+** Comments
+
+'#' in a makefile start a comment.
+
+** TODO this receipt didn't finished yet

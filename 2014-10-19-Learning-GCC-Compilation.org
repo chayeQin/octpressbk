@@ -1,0 +1,60 @@
+#+TITLE: Learning GCC Compilation
+#+DATE: 2014-10-19
+#+SETUPFILE: ~/.emacs.d/custom/org-octopress/setupfile.org
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: C/C++
+#+JEKYLL_PUBLISHED: true
+
+* General Use Of GCC  
+
+{{{more}}}
+** Compilation States
+*** Preprocessing 
+    -E : stop after preprocessing 
+
+    -D name : define a marco 
+
+    -D name=definition : define a marco with the definition 
+    
+    -I dir : Add additional directory to the list of directories to be searched for the header fiels, the add -I option directories are search before the standard system include directory.
+    
+    -w : supress all warnning 
+
+    -Wall : turn on all warnning
+
+    -std=standard : specify the standard 
+
+    -pedantic : Issue all the mandatory diagnostics listed in the C standard
+
+*** Compilation
+    -S : stop after compilation, not assemble
+
+*** Assemble
+    -c : stop after compilation and assemble, not link
+
+*** Linking
+    -l library : search the library when linking
+
+    -shared : produce a shared object 
+
+    -static : to prevent link with the shared libraries 
+
+** Options Controlling the kind of Output 
+   -E : Stop after Preprocessing
+
+   -S : Stop after compilation, not assemble
+
+   -c : Stop after compilation and assemble , not link
+
+   -o : Specify the output file name
+
+   -g : Producce debugging infomation in the operation native format
+
+** Options for directory search
+   -I : add directory to be searched for header files
+
+   -L : add directory to be searched for '-l' linking library
+
+** Hardware Models and Configurations
+   -fPIC ： emit Position Independent Code, suitable for dynamic link, used when create a shared library with -shared option
+
