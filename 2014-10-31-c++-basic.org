@@ -9,6 +9,8 @@
 {{{more}}}
 
 * The Basic
+** build-in type
+build-in type and compound type are initialized at global scope, class memeber of build-in or compound type are uninitialized.
 ** Reference
 Reference is a compound type.  A compound type is a type that is defined in terms of another type.
 
@@ -39,7 +41,7 @@ int **pptr1, **ptr2;
 const int * const * const ptr = &ptr1; // const pointer to const pointer to const int;
 #+end_src
 
-- Pointer arithmatic
+- pointer arithmatic
 #+begin_src c++
 char ary[10];
 char* bptr = ary;
@@ -137,7 +139,7 @@ FP ff(int);
 #+end_src
 
 * Class
-** Access permission
+** access permission
 the default access permission of struct is public, and class is private
 ** typedef in a class
 typedef in a class obey the standard access control of any other member.
@@ -157,15 +159,146 @@ class A; //  declaration
 class A{}; // definition
 A::A(){} // each class member function implemetation
 #+end_src
-** Auto-Generated Function
+After the declaration and before a definition is seen, the new type is a incomplete type. 
 
-** Friend Function and Friend Class
+the incomplete type can be used only in a limited ways: define a pointer or reference ,  declare a function that use the type as parameters or return type.
+** this pointer
+In an ordinary member function , this is a const pointer : Object *const this;
 
-** Const Keyword
+In a const member function , this ia a const pointer to a const objcet : const Objcet *const this;
+** overload member function base on const
+#+begin_src c++
+class A{
+public:
+    void func();
+    void func() const; // const object can only use the const version;
+};
+#+end_src
+** class Scope
+Parameter lists and member function body are in class Scope
 
-** Static class member
+member function return type are'n always in class scope, if the member function is defined outside the class body , the return type is outside the class scope
+** name lookup in class scope
+*** name lookup for class member declarations
+Names of types defined in a class must be seen before they are used as the type of a data member or as the return type or parameter types of a member function.
+#+begin_src c++
+typedef double Money;
+class Account{
+public:
+    Money balance(){} // use the global Money
+
+private:
+    typedef long long Money; // error : can not change meaning of Money
+    Money bal;
+};
+#+end_src
+
+*** name lookup in class member definitions
+1. local scope
+2. class scope
+3. scope before the member function definition
+
+** constructor
+*** constructor initializer
+members that are const or reference types must be initialized in the constructor initializer
+#+begin_src c++
+class A
+{
+public:
+    A(int ref, int ci) : m_ri(ref), m_ci(ci) {} // m_ri, and m_ci must be initilized in constuctor initializer
+
+private:
+    int& m_ri;
+    const int m_ci;
+};
+#+end_src
+*** order of member initialization
+the order in which members are initialized is the order in which the members are defined, regardless the order in initializer list.
+*** default constructor
+common mistake in using  default constructor
+#+begin_src c++
+A obj(); // ! declares a function !!!
+A obj = A(); // this is ok to define a object
+#+end_src
+*** implicit class-type conversions
+constructors with single argument defines an implicit conversions from the parameter type to the class type
+
+use explicit keyword to avoid implicit conversions
+** friends
+*** friend function
+#+begin_src c++
+class A
+{
+    friend void func(A&);
+    // friend function may be defiend inside the class.the friend function name is exported to the scope enclosing the class definition.
+    friend void friendFunc(A&){
+    // do sth
+    }
+};
+
+class B
+{
+    void doSth(){
+        A a;
+        friendFunc(a); // calling the global funcion.
+    }
+};
+#+end_src
+*** friend class
+#+begin_src c++
+class A
+{
+    friend class B;
+};
+#+end_src
+*** friend class member function
+#+begin_src c++
+class A
+{
+    // class B must be defined before class A, otherwise class A could not a B member function as friend;
+    friend B& B::func(A& a);
+    // However, the B::func() itself can't be defined until class A has been defined. or else the B::func() can't access the members of clas A
+};
+#+end_src
+
+** static class members
+static data members must be defined outside the class definition
+#+begin_src c++
+class A
+{
+private:
+    int initMember() { return 1;}
+    static int sm_i;
+};
+A::sm_i = initMember(); // the definition of static class member is in the class scope, we can call the static member function directly without qualification
+#+end_src
+
+*** const static data member
+const static data member can be initialize either within the class body or not
+#+begin_src c++
+class A
+{
+private:
+    static const int i = 10;
+};
+#+end_src
+
+*** static member are not part of objects
+#+begin_src c++
+class A
+{
+private:
+    static A sm_a; // ok
+    A* m_pa; // ok, class name has been seen 
+    A m_a; // error, A is imcomplete type
+};
+#+end_src
+
+** overall
+think about th scope, when using a name. think about type complement when define an object;
 
 * Operator Overload
+* Copy Control
 * OOP
 ** Encapsulation
 
@@ -173,7 +306,4 @@ A::A(){} // each class member function implemetation
 
 ** Polymorphism
 
-* Copy Control
-* Static and extern keyword
-* Marco
 * Compilaton
