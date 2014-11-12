@@ -1,0 +1,67 @@
+#+TITLE: Learning Lua
+#+DATE: 2014-11-10
+#+SETUPFILE: ~/.emacs.d/custom/org-octopress/setupfile.org
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: lua
+#+JEKYLL_PUBLISHED: true
+
+
+{{{more}}}
+
+* Basic Type
+
+** Variable and Value
+
+* Function
+** Function with variable parameter
+#+begin_src lua
+-- after lua5.0, there had a hiden variable arg, that received a table with the varargs.
+function foo(...)
+   print(arg.n)  -- the numbers of extra argumennts, arg.n = select('#', ...)
+   for i, v in pairs(arg) do -- arg = {...}
+      print(v)  
+   end
+end
+#+end_src
+** Higher order function
+
+** Closure
+what is a value in lua is the closure, not the function. the function itself is just a prototype for closures.
+
+the closure includes local value and the value from the enclosing scope
+#+begin_src lua
+ -- test 1
+function f()
+   local i = 10;
+   return function()
+      print(i) end
+end
+local g = f()
+g() -- > 10 : print the local i
+
+-- test 2
+function f()
+   function g()
+      print(i)
+   end
+
+   local i = 10
+end
+
+local g = f()
+g() --> nil : print the global i
+#+end_src
+
+** local function
+#+begin_src lua
+local fact = function(n)
+   if n == 0 return 1
+   else return n*fact(n-1) -- buggy
+end
+
+-- syntactic suger for recursive
+local function fact(n)
+   if n == 0 return 1
+   else return n*fact(n-1)
+end
+#+end_src

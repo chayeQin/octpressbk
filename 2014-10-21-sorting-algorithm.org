@@ -8,22 +8,162 @@
 * Sorting Algorithm
 
 {{{more}}}
-
-* Bubble Sort
+* Insertion Sort
+** Implementation 
 #+begin_src c++
-void bubbleSort(int* ary, unsigned len)
+void insertionSort(int* ary, size_t len)
 {
-    for (unsigned i = 0; i<len-1; ++i) {
-        for (unsigned j = 1; j < len; ++j) { // 每个循环最大的都会到低位
-            if (ary[i] < ary[j])
-            {
-                ary[i] = ary[i] ^ ary[j];
-                ary[j] = ary[i] ^ ary[j];
-                ary[i] = ary[i] ^ ary[j];
-            }
-        }
+    if (len < 2)
+        return;
 
+    for (size_t i = 1; i < len; ++i) // travel the unsorted list
+    {
+        size_t j = i;
+        int tmp = ary[j];// auxilary space, store the value to be inserted to the sorted array 
+        // the best case only compare with the right most element of the sorted array
+        while (j > 0 && ary[j - 1] > tmp) // worse case comparisons, 1 + 2 + 3 + ... + len - 1 = len*(len-1) / 2 = O(n^2)
+        {
+            // find the suitable place to insert
+            ary[j] = ary[j - 1]; // also worse case swaps : O(n^2)
+            --j;
+        }
+        ary[j] = tmp; // insert the value to selected index;
     }
 
 }
 #+end_src
+** Performance
+stable
+
+worse : O(n^2) comparisons, swaps
+
+best  : O(n) comparisons, O(1)swaps
+
+space complexity : O(n) total, O(1) auxilary
+
+* Selection Sort
+** Implementation
+#+begin_src c++
+void selectionSort(int* ary, size_t len)
+{
+    if (len < 2)
+        return;
+
+    for (size_t i = 0; i < len - 1; ++i)
+    {
+        size_t minIndex = i; // auxiliary space, recored the minimum index
+        for (size_t j = i+1; j < len; ++j)  // travel the rest unsorted list every time. find the minimum value index
+        {
+            if (ary[minIndex] > ary[j]) // worse case comparisons : (n-1) + (n-2) + ... + 1 = n(n-1) / 2 = O(n^2)
+            {
+                minIndex = j;
+            }
+        }
+        
+        if (minIndex != i) // worse case swaps : n
+        {
+            int tmp = ary[minIndex];
+            ary[minIndex] = ary[i];
+            ary[i] = tmp;
+        }
+    }
+}
+#+end_src
+** Performance
+stable
+
+worse : O(n^2) comparisons, O(n) swaps
+
+best : O(n^2) comparisons, 0 swaps
+
+space complexity : O(n) total, O(1) auxiliary
+
+used when the swap operation take place much expensive than the compare operation.
+* Quick Sort
+Quick Sort is a Divide And Conquer algorithm
+** Implementation
+#+begin_src c++
+void quickSort(int* ary, size_t len)
+{
+    if (len < 2)
+    {
+        return;
+    }
+    int pivot = ary[0]; // select a pivot
+    size_t minIndex = 0; // initialize the minIndex to be the pivot index
+    size_t maxIndex = len -1;
+    while (maxIndex > minIndex)
+    {
+        // reverse searching the value less than pivot, and copy the value to the minIndex which initialize to be the pivot index
+        for (; maxIndex > minIndex; --maxIndex)
+        {
+            if (ary[maxIndex] < pivot)
+            {
+                ary[minIndex++] = ary[maxIndex];
+                break;
+            }
+        }
+
+        // searching the value greater than pivot, and copy to maxIndex
+        for (; minIndex < maxIndex; ++minIndex)
+        {
+            if (ary[minIndex] > pivot)
+            {
+                ary[maxIndex--] = ary[minIndex];
+                break;
+            }
+        }
+    }
+    ary[minIndex] = pivot;
+    quickSort(ary, minIndex);
+    quickSort(ary + minIndex + 1, len - minIndex - 1);
+}
+#+end_src
+** Performance
+unstable
+
+worse : O(n^2)
+
+Best : O(n log n)
+
+space complexity : O(n) total, O(log n) auxiliary
+* Bubble Sort
+** Implementation
+#+begin_src c++
+void bubbleSort(int* ary, size_t len)
+{
+    bool isSwap = true;
+    while (isSwap)
+    {
+        isSwap = false;
+        for (size_t i = 0; i < len - 1; ++i) // every traversal find the biggest number from the rest unsorted list to the last unsorted index;
+        {
+            if (ary[i] > ary[i+1])
+            {
+                int tmp = ary[i];
+                ary[i] = ary[i+1];
+                ary[i+1] = tmp;
+                isSwap = true;
+            }
+        }
+    }
+}
+#+end_src
+** Performance
+stable
+
+Worse : O(n^2)
+
+Best : O(n)
+
+space complexity : O(n) total, O(1) auxiliary
+
+* Shell Sort
+** Implementation
+
+** Performance
+Worse : O(n^2)
+
+Best : O(n log n)
+
+space complexity : O(n) total, O(1) auxiliary

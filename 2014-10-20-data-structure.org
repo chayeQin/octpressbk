@@ -41,13 +41,16 @@ TODO
 #+begin_src c++
 Node* reverse(Node* pre, Node* next)
 {
-    if (!next)
+    if (pre == 0 || next == 0)
     {
         return pre;
     }
 
-    Node* newhead = reverse(next, next->next);
-    next->next = pre;
+    Node* newhead = reverse(next, next->m_next);
+    next->m_next = pre;
+    pre->m_next = 0;
     return newhead;
 }
 #+end_src
+
+*  Red-black tree

@@ -1,0 +1,94 @@
+#+TITLE: Learning STL
+#+DATE: 2014-11-11
+#+SETUPFILE: ~/.emacs.d/custom/org-octopress/setupfile.org
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: cpp
+#+JEKYLL_PUBLISHED: true
+
+* Stl basic
+
+{{{more}}}
+ 定义抽象的concepts, 并根据抽象的concepts来撰写算法与数据结构
+
+* Intorduction
+** Example 
+#+begin_src c++
+template <class InputIterator, class T>
+InputIterator find(InputIterator first, InputIterator end, const T& value)
+{
+    while (first != end && *first != value) ++first;
+    return first;
+}
+#+end_src
+
+** Containers and Alogorithms
+** Iterators
+Iterators are a generalization of pointers. the mechanism that make it possible to decouple algorithms from containers
+
+Algorithms are templates, and are parameterized by the type of iterator, so they are not restricted to a single type of container.
+** Adapters
+An adapter is a class or a function that transform one interface into a different one.
+** Functors
+Functor is a generalization of function. Functor allow abstraction over the operations that are being performed. 
+** Concepts and Modeling
+  Q: what set of types is that may correctly be subsituteed for the formal template parameters.
+
+  A: implicity defines a set of requirements of types, and that it may be instantiated with any type that satisfies those requirements.
+
+We call such set of requirements a concept. (e.g. InputIterator)
+
+Input Iterator concept: compare for equality, increment, dereference.
+
+We say that a type conforms to a concept, or that it is a model of a concept, if it is satisfies all those requirements. (e.g. int* is a model of InputIterator)
+** Refinement
+Bidirectional Iterator provide decrement operation as well as increment operation.
+
+Models of Bidirectional Iterator are a subset of the models of Input Iterator.
+
+Bidrectional Iterator is a refinement of Input Iterator
+*** Five Iterator concepts
+- Output Iterator
+- Input Iterator
+- Forward Iterator : refinement of Input Iterator
+- Bidirectional Iterator : refinement of Forward Iterator
+- Random Access Iterator : refinement of Bidirectional Iterator
+
+*** OterConcept
+    - Assignable , almost all stl classes are models of Assignable, and almost all stl algorithms require their arguments to be models of Assignble
+
+    - Allocator, allocators are very speciallized, and you can safely ignore them for almost all purposes.
+
+    - Function object, also know as functor, is a generalization of function. unary function, binary function are refinement of function object. 
+
+    Functor allow abstraction over the operations that are being performed. 
+
+** STL Components
+- Conainers
+- Iterators
+- Alogorithms
+- Function Objects
+- Utilities
+- Allocators
+** STL Clasification 
+*** Clasify by Categories 
+- Conatiner
+- Iterator
+- Algorithm
+- Function Object
+- Adapter
+- Allocator
+*** Clasify by Component types
+- Type (class or struct)
+- Function
+- Concept
+* Containers
+
+** Sequential Containers
+
+** Associative Containers
+
+* Iterators
+
+* Functors
+
+* Adapters
