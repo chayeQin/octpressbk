@@ -82,13 +82,53 @@ Bidrectional Iterator is a refinement of Input Iterator
 - Function
 - Concept
 * Containers
-
 ** Sequential Containers
 
 ** Associative Containers
 
+* Algorithms
 * Iterators
+Iterators are a generalization of pointers. 
+** Iterator tag
+Iterator tag functions are a method for accessing information that is associated with iterators.
 
+iterator tag functions are old machanisms, there is a new machanism iterator_traits
+
+iterator tag functions:
+- category
+specify which concept
+- value type
+specify the type of dereference
+- distance type
+specify the type of distance between two iterators
+*** Iterator traits
+iterator_traits is a template class that contain nothing but nested typedefs to define one type's traits.
+
+** Trivial Iterator
+Trivial Iterator may be mutable or constant
+
+Refinement of : Assignable, Equality Comparable, Default Constructible
+
+Valid Operation: dereference, dereference assignement,  member access, default constructor
+
+** Input Iterator
+Input Iterator are not require to be mutable
+
+Refinement of : Trivial Iterator
+
+Valid Operation : increment, dereference
+
+** Output Iterator
+Output Iterator only be used to stroe value, neither read nor member access
+
+Refinement of : Assignable, Default constructible
+
+Valid Operation : increment, dereference assignment, default constructor
+
+** Forward Iterator
+** Bidirectional Iterator
+** Random Access Iterator
 * Functors
 
 * Adapters
+* Allocators
